@@ -13,9 +13,11 @@ CORS(app)
 def get_docs():
 	if "query" not in request.json or q is None:
 		return { "error": "ERROR!" }
+	print(request.json)
 	alpha = environ.get("THRESHOLD_VALUE")
-	if "alpha" in request.json:
+	if "alpha" in request.json and request.json["alpha"] is not None:
 		alpha = request.json["alpha"]
+	print(alpha)
 	return jsonify(q.process(request.json["query"], alpha=float(alpha)))
 
 if __name__ == '__main__':
