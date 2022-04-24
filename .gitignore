@@ -1,0 +1,9 @@
+Scripts
+lib/site-packages
+lib/__pycache__
+include
+pyvenv.cfg
+resources/Abstracts
+env_test.py
+.env
+init.sh
