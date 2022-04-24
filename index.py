@@ -3,6 +3,7 @@ from os import environ
 from lib.preprocessor import Preprocessor
 from lib.reader import Reader
 from lib.index_builder import IndexBuilder
+from lib.query_processor import QueryProcessor
 import pickle
 
 if __name__ == '__main__':
@@ -49,3 +50,5 @@ if __name__ == '__main__':
 				index = pickle.load(input)
 
 	print(index["bootstrap"])
+	q = QueryProcessor(preprocessor=p, index=index)
+	print(q.process("diabetes and obesity"))
