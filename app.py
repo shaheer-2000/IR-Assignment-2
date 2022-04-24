@@ -1,11 +1,9 @@
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 from os import environ
-from index import init
+from index import q
 
-# if __name__ == '__main__':
 load_dotenv()
-q = init()
 
 app = Flask(__name__)
 
@@ -16,6 +14,6 @@ def get_docs():
 	return jsonify(q.process(request.json["query"], alpha=float(environ.get("THRESHOLD_VALUE"))))
 	# return { "ok": "OK!" }
 
-
-app.run(port=environ.get("PORT", 5000))
+if __name__ == '__main__':
+	app.run(host="0.0.0.0", port=int(environ.get("PORT", 5000)))
 	
