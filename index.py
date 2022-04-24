@@ -5,7 +5,7 @@ from lib.index_builder import IndexBuilder
 from lib.query_processor import QueryProcessor
 import pickle
 
-if __name__ == '__main__':
+def init():
 	r = Reader(collection_path=environ.get("COLLECTION_PATH"))
 	stopwords = list(filter(lambda s: s != " ", r.read_file(environ.get("STOPWORDS_PATH")).splitlines()))
 	p = Preprocessor(stopwords=stopwords)
@@ -44,4 +44,4 @@ if __name__ == '__main__':
 		with open(r.resolve_path(environ.get("INDEX_DUMP")), "rb") as input:
 				index = pickle.load(input)
 
-	q = QueryProcessor(preprocessor=p, index=index)
+	return QueryProcessor(preprocessor=p, index=index)
