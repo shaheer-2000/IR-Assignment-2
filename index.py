@@ -7,11 +7,12 @@ import pickle
 
 if __name__ == '__main__':
 	load_dotenv()
-	print(environ.get("COLLECTION_PATH"))
 
 	r = Reader(collection_path=environ.get("COLLECTION_PATH"))
 	stopwords = list(filter(lambda s: s != " ", r.read_file(environ.get("STOPWORDS_PATH")).splitlines()))
 	p = Preprocessor(stopwords=stopwords)
+
+	r.mkdir(environ.get("DUMPS_PATH"))
 
 	preprocessed_docs = None
 

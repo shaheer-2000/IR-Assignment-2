@@ -21,3 +21,7 @@ class Reader:
 	def resolve_path(self, path):
 		p = Path(path)
 		return p.resolve()
+
+	# additional utility
+	def mkdir(self, path):
+		Path(path).mkdir(parents=True, exist_ok=True)
