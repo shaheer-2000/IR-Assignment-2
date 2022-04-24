@@ -6,6 +6,8 @@ from lib.index_builder import IndexBuilder
 from lib.query_processor import QueryProcessor
 import pickle
 
+from flask import Flask, request, jsonify
+
 if __name__ == '__main__':
 	load_dotenv()
 
@@ -33,8 +35,6 @@ if __name__ == '__main__':
 		with open(r.resolve_path(environ.get("PREPROCESSED_DUMP")), "rb") as input:
 			preprocessed_docs = pickle.load(input)
 
-	print(preprocessed_docs[180], len(preprocessed_docs[180]))
-
 	index = None
 	if not r.path_exists(environ.get("INDEX_DUMP")):
 		i = IndexBuilder()
@@ -49,6 +49,14 @@ if __name__ == '__main__':
 		with open(r.resolve_path(environ.get("INDEX_DUMP")), "rb") as input:
 				index = pickle.load(input)
 
-	print(index["bootstrap"])
 	q = QueryProcessor(preprocessor=p, index=index)
-	print(q.process("diabetes and obesity"))
+
+	app = Flask(__name__)
+
+	@app.route("/", methods=["POST"])
+	def get_docs():
+		if "query" not in request.json:
+			return { "error": "ERROR!" }
+		return jsonify(q.process(request.json["query"], alpha=float(environ.get("THRESHOLD_VALUE"))))
+
+	app.run(debug=True)
