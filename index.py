@@ -60,3 +60,4 @@ if __name__ == '__main__':
 		return jsonify(q.process(request.json["query"], alpha=float(environ.get("THRESHOLD_VALUE"))))
 
 	app.run(debug=True)
+	
