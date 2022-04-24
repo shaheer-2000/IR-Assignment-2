@@ -13,8 +13,10 @@ CORS(app)
 def get_docs():
 	if "query" not in request.json or q is None:
 		return { "error": "ERROR!" }
-	return jsonify(q.process(request.json["query"], alpha=float(environ.get("THRESHOLD_VALUE"))))
-	# return { "ok": "OK!" }
+	alpha = environ.get("THRESHOLD_VALUE")
+	if "alpha" in request.json:
+		alpha = request.json["alpha"]
+	return jsonify(q.process(request.json["query"], alpha=float(alpha)))
 
 if __name__ == '__main__':
 	app.run(host="0.0.0.0", port=int(environ.get("PORT", 5000)))
