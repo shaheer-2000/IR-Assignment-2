@@ -7,7 +7,7 @@ class Reader:
 		pass
 
 	def get_documents(self):
-		return [doc for doc in self.p.iterdir() if doc.is_file()]
+		return sorted([doc for doc in self.p.iterdir() if doc.is_file()], key=lambda i: int(i.stem))
 
 	def read_file(self, file):
 		f = Path(file)

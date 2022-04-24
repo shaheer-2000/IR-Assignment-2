@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 from os import environ
 from lib.preprocessor import Preprocessor
 from lib.reader import Reader
+from lib.index_builder import IndexBuilder
 import pickle
 
 if __name__ == '__main__':
@@ -30,4 +31,20 @@ if __name__ == '__main__':
 		with open(r.resolve_path(environ.get("PREPROCESSED_DUMP")), "rb") as input:
 			preprocessed_docs = pickle.load(input)
 
-	print(preprocessed_docs[0], len(preprocessed_docs[0]))
+	print(preprocessed_docs[180], len(preprocessed_docs[180]))
+
+	index = None
+	if not r.path_exists(environ.get("INDEX_DUMP")):
+		i = IndexBuilder()
+		i.process(preprocessed_docs)
+
+		index = i.index
+
+		with open(r.resolve_path(environ.get("INDEX_DUMP")), "wb") as output:
+				pickle.dump(i.index, output)
+		
+	else:
+		with open(r.resolve_path(environ.get("INDEX_DUMP")), "rb") as input:
+				index = pickle.load(input)
+
+	print(index["bootstrap"])
