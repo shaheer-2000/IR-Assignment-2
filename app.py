@@ -1,13 +1,11 @@
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 from os import environ
-from index import init
+from index import q
 
 load_dotenv()
 
 app = Flask(__name__)
-
-q = None
 
 @app.route("/", methods=["GET", "POST"])
 def get_docs():
@@ -18,6 +16,5 @@ def get_docs():
 	# return { "ok": "OK!" }
 
 if __name__ == '__main__':
-	q = init()
 	app.run(host="0.0.0.0", port=int(environ.get("PORT", 5000)))
 	

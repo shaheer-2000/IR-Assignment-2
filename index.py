@@ -5,7 +5,7 @@ from lib.index_builder import IndexBuilder
 from lib.query_processor import QueryProcessor
 import pickle
 
-def init():
+if __name__ == "__main__":
 	r = Reader(collection_path=environ.get("COLLECTION_PATH"))
 	stopwords = list(filter(lambda s: s != " ", r.read_file(environ.get("STOPWORDS_PATH")).splitlines()))
 	p = Preprocessor(stopwords=stopwords)
@@ -16,8 +16,7 @@ def init():
 
 	if not r.path_exists(environ.get("PREPROCESSED_DUMP")):
 		docs = r.get_documents()
-		abstract = r.read_file(docs[0])
-
+		print("HERE")
 		abstracts = []
 		for doc in docs:
 			abstracts.append(r.read_file(doc))
@@ -34,6 +33,7 @@ def init():
 	if not r.path_exists(environ.get("INDEX_DUMP")):
 		i = IndexBuilder()
 		i.process(preprocessed_docs)
+		print("HERE")
 
 		index = i.index
 
@@ -44,4 +44,7 @@ def init():
 		with open(r.resolve_path(environ.get("INDEX_DUMP")), "rb") as input:
 				index = pickle.load(input)
 
-	return QueryProcessor(preprocessor=p, index=index)
+	print("HERE")
+	q = QueryProcessor(preprocessor=p, index=index)
+
+q = None
