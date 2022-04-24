@@ -2,10 +2,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from os import environ
 from index import q
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/", methods=["GET", "POST"])
 def get_docs():
