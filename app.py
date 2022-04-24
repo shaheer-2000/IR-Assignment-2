@@ -3,11 +3,11 @@ from dotenv import load_dotenv
 from os import environ
 from index import init
 
-load_dotenv()
-app = Flask(__name__)
-
 if __name__ == '__main__':
+	load_dotenv()
 	q = init()
+
+	app = Flask(__name__)
 
 	@app.route("/", methods=["GET", "POST"])
 	def get_docs():
@@ -17,5 +17,5 @@ if __name__ == '__main__':
 		# return { "ok": "OK!" }
 
 
-	app.run(port=5000)
+	app.run(port=environ.get("PORT", 5000))
 	
