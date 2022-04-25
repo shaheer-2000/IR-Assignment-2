@@ -1,6 +1,12 @@
 import spacy
 
 class Preprocessor:
+	"""
+	Simple preprocessing pipeline making use spacy's robust
+	pipelining and tokenization API
+
+	Simple removes punctuation, stopwords, and tokenizes with lemma
+	"""
 	def __init__(self, stopwords):
 		self.stopwords = stopwords
 		self.punctuations = "!@#$%^&*()_+-=,./<>?;':\"[]{}\|`~`"

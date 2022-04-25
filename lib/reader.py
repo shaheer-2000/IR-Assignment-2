@@ -1,6 +1,9 @@
 from pathlib import Path
 
 class Reader:
+	"""
+	Simple module responsible for file handling
+	"""
 	def __init__(self, collection_path):
 		self.path = collection_path
 		self.p = Path(self.path)

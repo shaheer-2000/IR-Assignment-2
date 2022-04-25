@@ -1,4 +1,9 @@
 class QueryProcessor:
+	"""
+	Handles basic query processing by comparing query term
+	vectors (after euclidean normalization) with all possible 
+	documents and returns in sorted order of doc id with alpha filtering
+	"""
 	def __init__(self, preprocessor, index):
 		self.preprocessor = preprocessor
 		self.index = index

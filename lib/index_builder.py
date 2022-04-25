@@ -1,10 +1,17 @@
 from math import log10, sqrt
 
 # TODO: multithreading
-# length normalize tf values for documents -> tf / magnitude(doc)
-# 
+# TODO: read research paper for better data structures for implementing this
 
 class IndexBuilder:
+	"""
+	Constructs:
+	1) Term-Freq Matrix for Length Normlization
+	2) Length-Norm Vector
+	3) Index as:
+		term -> (docFreq, idf) -> postings
+		postings -> (docID, termFreq, tfidf)
+	"""
 	def __init__(self):
 		self.index = {}
 		self.tf_doc_matrix = {}
